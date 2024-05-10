@@ -1,0 +1,18 @@
+.header {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100px;
+   background-color: #31363F;
+   overflow: hidden;
+   position: relative;
+   padding-bottom: 45px;
+ }
+ 
+ .letter {
+   font-size: 52px;
+   font-weight: bold;
+   transition: all 1s ease; 
+   color:EEEEEE ;
+ }
+ 
