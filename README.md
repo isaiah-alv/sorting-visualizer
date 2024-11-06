@@ -1,6 +1,4 @@
-Here's a structured README in Markdown format for your React application. This README includes an overview of your app, setup instructions, a description of its main components, and usage guidelines.
 
-```markdown
 # Sorting Visualizer and Chat Application
 
 This project consists of two main components: a Sorting Visualizer (`SortComponent`) and a Chat Application (`ChatModal`). The Sorting Visualizer uses animation to demonstrate sorting algorithms like Merge Sort and Insertion Sort. The Chat Application integrates with the ChatGPT API to provide explanations on sorting algorithms at various levels of complexity.
