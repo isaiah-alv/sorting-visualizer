@@ -1,21 +1,25 @@
 // App.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import ChatModal from './ChatModal';  // Ensure the path is correct based on your project structure
-import SortComponent from './SortComponent';
-import Header from './Header'; // Import the Header component
-
+import SortComponent from './SortingVisualizer/SortComponent';
+import ChatPanel from './ChatModal/ChatPanel';
+import Footer from './Footer/Footer';
 
 function App() {
-  const [modalOpen, setModalOpen] = useState(false);
-
   return (
-    <div className="App">
-      <Header />
-      <button onClick={() => setModalOpen(true)}>Ask SORT-GPT</button>
-      <ChatModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-      <SortComponent></SortComponent>
-      <p>More to be added soon! Isaiah Alviola 2024</p>
+    <div className="layout-grid">
+      <div className="left-column">
+        <header className="header">
+          <h1>All Out of SORTS</h1>
+        </header>
+        <div className="sort-area">
+          <SortComponent />
+        </div>
+    
+        <Footer />
+      </div>
+      {/* Render ChatPanel as an overlay modal */}
+      <ChatPanel />
     </div>
   );
 }

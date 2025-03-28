@@ -1,38 +1,42 @@
+/* App.css */
 
-.App {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  background-color: #31363F;
+/* Reset */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+  background-color: #000814;
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 100%;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.left-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full height of the viewport */
-  width: 100vw; /* Full width of the viewport */
-  margin: 0;
-  padding: 0; /* Ensure no padding is affecting the size */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-
+  overflow: hidden;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background: black;
-  border-radius: 8px;
-  z-index: 1002;
-  width: 90%;
-  max-width: 700px;
+/* Title styling */
+.header {
+  background-color: #000814; 
+  font-family: 'Raleway', sans-serif;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
 }
 
-.close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  cursor: pointer;
-}
-p{
-  color: #EEEEEE;
+.sort-area {
+  flex: 1 1 auto;
+  overflow: auto;
+  background-color: #000814;
 }

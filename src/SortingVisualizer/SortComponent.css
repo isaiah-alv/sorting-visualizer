@@ -1,0 +1,56 @@
+.component-section {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100;
+   padding-bottom: 1rem;
+}
+
+
+.button-bar {
+   width: 100%;
+   max-width: 800px;
+   height: 70px;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   margin-bottom: 20px;
+   font-size: 10%;
+   padding: 10px;
+}
+
+.button-bar button {
+   width: 23%;
+   height: 50px;
+   background-color: #08bdbd;
+   border: none;
+   cursor: pointer;
+   transition: background 0.3s;
+   font-size: 20px;
+   font-family: 'Raleway', sans-serif;
+}
+
+.button-bar button:hover {
+   background: #FC6736;
+}
+
+
+
+/* Container for array bars */
+.array-container {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: flex-end;
+   width: 90%;
+   height: 550px;
+   background-color: #000814;
+   margin-top: 10px;
+   overflow: hidden;
+}
+
+.array-bar {
+   flex: 1;
+   margin: 0 2px;
+   background-color: #abff4f;
+}
