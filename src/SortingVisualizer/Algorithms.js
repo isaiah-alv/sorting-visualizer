@@ -1,4 +1,3 @@
-// Algorithms.js
 
 export function getMergeSortAnimations(array) {
   const animations = [];
@@ -74,19 +73,18 @@ export function getBubbleSortAnimations(array) {
   const animations = [];
   const auxiliaryArray = array.slice();
   const n = auxiliaryArray.length;
-  // Bubble sort: compare adjacent bars and swap if necessary
+  //  compare adjacent bars and swap if necessary
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - i - 1; j++) {
-      // Push compare animation: highlight bars j and j+1
+      //compare animation is highlighting bars j and j+1
       animations.push([j, j+1, "compare"]);
-      // Push revert animation: reset bars j and j+1 to original color
+      // push revert animation resets bars j and j+1 to original color
       animations.push([j, j+1, "revert"]);
-      // If the bar at index j is greater than its neighbor, swap them
       if (auxiliaryArray[j] > auxiliaryArray[j+1]) {
-        // Push swap animations for both bars
+        //push swap animations for both bars
         animations.push([j, auxiliaryArray[j+1], "swap"]);
         animations.push([j+1, auxiliaryArray[j], "swap"]);
-        // Perform the swap in the auxiliary array
+        // perform the swap in the auxiliary array
         let temp = auxiliaryArray[j];
         auxiliaryArray[j] = auxiliaryArray[j+1];
         auxiliaryArray[j+1] = temp;
@@ -96,7 +94,7 @@ export function getBubbleSortAnimations(array) {
   return animations;
 }
 
-// --- Quick Sort ---
+
 export function getQuickSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return animations;
@@ -131,8 +129,7 @@ function partition(arr, low, high, animations) {
   [arr[i], arr[high]] = [arr[high], arr[i]];
   return i;
 }
-
-// --- Unit Test Function ---
+//test!
 export function testAllSorts() {
   const testArrays = [
     [],
@@ -152,7 +149,7 @@ export function testAllSorts() {
     for (const { name, fn } of sorts) {
       const anims = fn(arr);
       let animResult = arr.slice();
-      // Simulate the sort for Merge, Insertion, Quick
+      // simulate the sort 
       if (name === 'Merge') {
         animResult = arr.slice();
         getMergeSortAnimations(animResult);
@@ -171,7 +168,7 @@ export function testAllSorts() {
   }
 }
 
-// --- Run Animation Function ---
+
 export function runSortAnimation(algorithm, array) {
   let anims;
   switch (algorithm) {

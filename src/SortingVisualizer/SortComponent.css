@@ -98,8 +98,6 @@
    box-shadow: none;
 }
 
-
-/* Container for array bars */
 .array-container {
    display: flex;
    flex-direction: row;
@@ -147,14 +145,14 @@
   -webkit-appearance: none;
   width: 70px;
   height: 4px;
-  background: #000;       /* black track */
+  background: #000;       
   border-radius: 2px;
   outline: none;
   transition: background 0.2s;
   margin: 0 2px;
 }
 
-/* webKit thumb */
+/* thumb */
 .slider-group input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 12px;
