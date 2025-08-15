@@ -1,5 +1,5 @@
 // ChatPanel.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {
   MainContainer,
@@ -10,10 +10,13 @@ import {
   TypingIndicator
 } from '@chatscope/chat-ui-kit-react';
 import './ChatPanel.css';
+import PropTypes from 'prop-types';
 
 const ChatPanel = () => {
-  const [apiKey, setApiKey] = useState('');
-  const [apiKeyEntered, setApiKeyEntered] = useState(false);
+  // Try to get the API key from environment variable
+  const envApiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  const [apiKey, setApiKey] = useState(envApiKey || '');
+  const [apiKeyEntered, setApiKeyEntered] = useState(!!envApiKey);
   const [messages, setMessages] = useState([
     {
       message: "Hello, I'm SORT-GPT! Ask me anything about sorting!",
@@ -23,8 +26,6 @@ const ChatPanel = () => {
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
-  const [complexity, setComplexity] = useState('Tim');
-  const [isOpen, setIsOpen] = useState(false);
 
   const explanations = {
     Abi: "Explain things in a very simple and basic manner, suitable for someone unfamiliar with computers in 150 words or less.",
@@ -44,9 +45,10 @@ const ChatPanel = () => {
   };
 
   async function processMessageToChatGPT(chatMessages) {
+    // Use assistant prop for complexity
     const systemMessage = {
       role: "system",
-      content: explanations[complexity]
+      content: explanations['Tim'] 
     };
 
     const apiMessages = chatMessages.map(msg => ({
@@ -95,53 +97,85 @@ const ChatPanel = () => {
     setIsTyping(false);
   }
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <>
-      <button className="toggle-button" onClick={toggleChat}>
-        {isOpen ? "Close Chat" : "Open Chat"}
-      </button>
-      <div className={`chat-panel ${isOpen ? "open" : ""}`}>
-        <div className="assistant-buttons">
-          <label className="current-assistant">Current Assistant: {complexity}</label>
-          <button onClick={() => setComplexity('Abi')}>Beginner (Abi)</button>
-          <button onClick={() => setComplexity('Pat')}>Intermediate (Pat)</button>
-          <button onClick={() => setComplexity('Tim')}>Expert (Tim)</button>
+    <div className="chat-panel open">
+      {!apiKeyEntered ? (
+        <input
+          type="text"
+          placeholder="Enter API Key to start..."
+          onChange={e => {
+            setApiKey(e.target.value);
+            setApiKeyEntered(true);
+          }}
+          style={{ width: '100%', padding: '10px' }}
+        />
+      ) : (
+        <div className="chat-grid">
+          <MainContainer className="chat-container-style">
+            <ChatContainer>
+              <MessageList
+                scrollBehavior="smooth"
+                typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
+              >
+                {messages.map((msg, i) => (
+                  <Message key={i} model={msg} />
+                ))}
+              </MessageList>
+              <MessageInput placeholder="Type your message..." onSend={handleSend} />
+            </ChatContainer>
+          </MainContainer>
         </div>
-
-        {!apiKeyEntered ? (
-          <input
-            type="text"
-            placeholder="Enter API Key to start..."
-            onChange={e => {
-              setApiKey(e.target.value);
-              setApiKeyEntered(true);
-            }}
-            style={{ width: '100%', padding: '10px' }}
-          />
-        ) : (
-          <div className="chat-grid">
-            <MainContainer className="chat-container-style">
-              <ChatContainer>
-                <MessageList
-                  scrollBehavior="smooth"
-                  typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
-                >
-                  {messages.map((msg, i) => (
-                    <Message key={i} model={msg} />
-                  ))}
-                </MessageList>
-                <MessageInput placeholder="Type your message..." onSend={handleSend} />
-              </ChatContainer>
-            </MainContainer>
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
+};
+
+// Reusable Modal component for assistant selection
+export function Modal({ open, onClose, children }) {
+  if (!open) return null;
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      background: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 2000
+    }} onClick={onClose}>
+      <div style={{
+        background: '#fff',
+        borderRadius: '16px',
+        padding: '2rem',
+        minWidth: '320px',
+        maxWidth: '90vw',
+        boxShadow: '0 4px 32px rgba(0,0,0,0.2)',
+        position: 'relative',
+        fontFamily: "'Inter', 'Raleway', sans-serif"
+      }} onClick={e => e.stopPropagation()}>
+        {children}
+        <button style={{
+          position: 'absolute',
+          top: 12,
+          right: 16,
+          background: 'none',
+          border: 'none',
+          fontSize: 24,
+          cursor: 'pointer',
+          color: '#888'
+        }} onClick={onClose} aria-label="Close">×</button>
+      </div>
+    </div>
+  );
+}
+
+Modal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node
 };
 
 export default ChatPanel;

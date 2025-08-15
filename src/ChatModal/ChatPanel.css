@@ -13,7 +13,7 @@
   flex-direction: column;
   padding: 1rem;
   box-sizing: border-box;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', 'Raleway', sans-serif;
   color: #111;
   z-index: 1000;
 }
@@ -36,7 +36,7 @@
   font-size: 1rem;
   z-index: 1001;
   transition: background-color 0.3s;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', 'Raleway', sans-serif;
 }
 
 .toggle-button:hover {
